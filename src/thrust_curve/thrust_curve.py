@@ -4,6 +4,8 @@ from src.thrust_curve.bens_ox_tank import OxTank
 from src.thrust_curve.combustion_chamber import cc
    
 import matplotlib.pyplot as plt
+import matplotlib
+#matplotlib.use('QT5Agg')
 import numpy as np
 import csv
 

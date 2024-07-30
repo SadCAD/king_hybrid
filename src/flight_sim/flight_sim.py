@@ -20,7 +20,7 @@ from rocketpy import (
 )
 
 #1) def environment
-env = Environment(latitude=constants.latitude, longitude=constants.latitude, elevation=constants.elevation) 
+env = Environment(latitude=constants.latitude, longitude=constants.longitude, elevation=constants.elevation) 
 
 env.set_date(
     (constants.year, constants.month, constants.date, constants.hour)
@@ -94,12 +94,21 @@ Set, if desired, rail guides;
 See results.
 """
 #CREATE ROCKET
+"""
+mass is the rocket’s mass, without the motor, in kg.
+
+inertia is defined as a tuple of the form (I11, I22, I33). Where I11 and I22 are the inertia of the mass around the perpendicular axes to the rocket, and I33 is the inertia around the rocket center axis.
+
+Alternatively, inertia can be defined as a tuple of the form (I11, I22, I33, I12, I13, I23). Where I12, I13 and I23 are the component of the inertia tensor in the directions 12, 13 and 23 respectively.
+
+center_of_mass_without_motor and coordinate_system_orientation are position parameters. They must be treated with care. See the Positions and Coordinate Systems section for more information.
+"""
 XENIA2 = Rocket(
     radius=constants.rocket_fuselage_rad,
     mass=constants.rocket_dry_mass,
-    inertia=(6.321, 6.321, 0.034),
-    power_off_drag=r'./src/flight_sim/sample_drag.csv',
-    power_on_drag=r'./src/flight_sim/sample_drag.csv',
+    inertia=(inertia_normal, inertia_binormal, inertia_axial),
+    power_off_drag=r'./src/flight_sim/no_power_drag.csv', #currently based on anduril 1
+    power_on_drag=r'./src/flight_sim/power_drag.csv', #currently based on anduril 1
     center_of_mass_without_motor=0,
     coordinate_system_orientation="tail_to_nose",
 )
